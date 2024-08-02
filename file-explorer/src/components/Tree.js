@@ -5,7 +5,7 @@ import '../styles/App.css';
 
 const Tree = () => {
   const [data, setData] = useState({});
-  const [cursor, setCursor] = useState(false);
+  const [cursor, setCursor] = useState(null); 
 
   useEffect(() => {
     fetchFiles();
@@ -14,9 +14,11 @@ const Tree = () => {
   const fetchFiles = async () => {
     try {
       const response = await api.get('/files');
+      
       setData(response.data);
     } catch (error) {
-      console.error(error);
+      console.error("Failed to fetch files:", error);
+      
     }
   };
 
@@ -29,12 +31,16 @@ const Tree = () => {
       node.toggled = toggled;
     }
     setCursor(node);
-    setData(Object.assign({}, data));
+    setData({...data}); 
   };
 
   return (
     <div className="tree-container">
-      <Treebeard data={data} onToggle={onToggle} />
+      <Treebeard 
+        data={data} 
+        onToggle={onToggle} 
+        
+      />
     </div>
   );
 };
