@@ -1,4 +1,4 @@
-require('dotenv').config();
+
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
@@ -8,13 +8,8 @@ const app = express();
 app.use(express.json);
 app.use(cors);
 
-const mongoURI = process.env.MONGO_URI;
 
-mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
-  .then(() => console.log('Database Connected'))
-  .catch(err => console.error('connection error:', err));
-
-
+mongoose.connect('mongodb://localhost:27017/fileStructure', { useNewUrlParser: true, useUnifiedTopology: true });
 
 app.use('/api/files', Routes);
 

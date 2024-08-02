@@ -1,21 +1,42 @@
-import React, { useEffect, useState } from 'react';
-import {Treebeard} from 'react-treebeard';
-import api from './service/api.js';
+import React, { useState, useEffect } from 'react';
+import { Treebeard } from 'react-treebeard';
+import api from '../service/api';
+import '../styles/App.css';
 
 const Tree = () => {
-    const[data,setData] = useState({});
+  const [data, setData] = useState({});
+  const [cursor, setCursor] = useState(false);
 
-    useEffect(()=>{
-        api.get('/files')
-        .then(response => setData(response.data))
-        .catch(error => console.error(error));
-    },[]);
+  useEffect(() => {
+    fetchFiles();
+  }, []);
 
-    return(
-        <>
-            <Treebeard data={data} />
-        </>
-    )
-}
+  const fetchFiles = async () => {
+    try {
+      const response = await api.get('/files');
+      setData(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const onToggle = (node, toggled) => {
+    if (cursor) {
+      cursor.active = false;
+    }
+    node.active = true;
+    if (node.children) {
+      node.toggled = toggled;
+    }
+    setCursor(node);
+    setData(Object.assign({}, data));
+  };
+
+  return (
+    <div className="tree-container">
+      <Treebeard data={data} onToggle={onToggle} />
+    </div>
+  );
+};
 
 export default Tree;

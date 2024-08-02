@@ -1,0 +1,41 @@
+.App {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+    background-color: #f0f0f0;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .tree-container {
+    width: 80%;
+    max-width: 600px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+  }
+  
+  .treebeard .node {
+    cursor: pointer;
+    line-height: 24px;
+  }
+  
+  .treebeard .node .node-header {
+    display: flex;
+    align-items: center;
+  }
+  
+  .treebeard .node .node-header .icon {
+    margin-right: 8px;
+  }
+  
+  .treebeard .node .node-header .name {
+    font-weight: bold;
+  }
+  
+  .treebeard .node .node-header .name:hover {
+    color: #007bff;
+  }
+  
